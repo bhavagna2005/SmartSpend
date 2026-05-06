@@ -1,0 +1,33 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  # --- CUSTOMIZATION ---
+  # Exclude generated files from analysis
+  exclude:
+    - build/**
+    - lib/generated/**
+  # Define custom severity for certain issues
+  errors:
+    todo: ignore # Allow TODO comments without warnings
+    missing_required_param: error
+    missing_return: error
+    parameter_assignments: warning
+
+linter:
+  # --- CUSTOMIZATION ---
+  # Enable additional rules for better code quality
+  rules:
+    # --- Performance ---
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - avoid_print # Ensures debug prints are removed before production
+    
+    # --- Style & Best Practices ---
+    - prefer_final_fields
+    - prefer_final_locals
+    - sort_child_properties_last
+    - use_key_in_widget_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_single_quotes # Enforce single quotes for strings
