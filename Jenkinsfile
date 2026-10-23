@@ -40,5 +40,12 @@ pipeline {
                 bat '"%DOCKER%" info'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                bat '"%DOCKER%" build -t smartspend-backend:1.0 -f backend/Dockerfile .'
+            }
+        }
     }
 }
+
