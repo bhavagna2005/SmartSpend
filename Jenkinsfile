@@ -1,5 +1,10 @@
+
 pipeline {
     agent any
+
+    environment {
+        PYTHON = 'C:\\Users\\Srinivas\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
+    }
 
     stages {
         stage('Checkout') {
@@ -10,21 +15,21 @@ pipeline {
 
         stage('Check Python') {
             steps {
-                bat 'python --version'
+                bat '"%PYTHON%" --version'
             }
         }
 
         stage('Verify Dependencies') {
             steps {
-                bat 'python -m pip install -r backend/requirements.txt'
+                bat '"%PYTHON%" -m pip install -r backend/requirements.txt'
             }
         }
 
         stage('Validate Backend Files') {
             steps {
-                bat 'python -m py_compile backend/app.py'
-                bat 'if not exist backend/logistic_model.pkl exit /b 1'
-                bat 'if not exist backend/tfidf_vectorizer.pkl exit /b 1'
+                bat '"%PYTHON%" -m py_compile backend/app.py'
+                bat 'if not exist backend\\logistic_model.pkl exit /b 1'
+                bat 'if not exist backend\\tfidf_vectorizer.pkl exit /b 1'
             }
         }
     }
