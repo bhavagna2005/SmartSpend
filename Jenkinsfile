@@ -44,7 +44,6 @@ pipeline {
 
         stage('Check Kubernetes') {
             steps {
-                bat 'echo Checking Kubernetes access...'
                 bat '"%KUBECTL%" config current-context'
                 bat '"%KUBECTL%" get nodes'
             }
@@ -53,6 +52,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat '"%DOCKER%" build -t smartspend-backend:1.0 -f backend/Dockerfile .'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat '"%KUBECTL%" apply -f backend\\deployment.yaml'
+                bat '"%KUBECTL%" apply -f backend\\service.yaml'
+                bat '"%KUBECTL%" rollout status deployment/smartspend-backend --timeout=120s'
+                bat '"%KUBECTL%" get services smartspend-backend-service'
             }
         }
     }
