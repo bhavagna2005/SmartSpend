@@ -4,6 +4,7 @@ pipeline {
 
     environment {
         PYTHON = 'C:\\Users\\Srinivas\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
+        DOCKER = 'C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe'
     }
 
     stages {
@@ -30,6 +31,13 @@ pipeline {
                 bat '"%PYTHON%" -m py_compile backend/app.py'
                 bat 'if not exist backend\\logistic_model.pkl exit /b 1'
                 bat 'if not exist backend\\tfidf_vectorizer.pkl exit /b 1'
+            }
+        }
+
+        stage('Check Docker') {
+            steps {
+                bat '"%DOCKER%" --version'
+                bat '"%DOCKER%" info'
             }
         }
     }
