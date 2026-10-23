@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smartspend-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smartspend-backend
+  template:
+    metadata:
+      labels:
+        app: smartspend-backend
+    spec:
+      containers:
+        - name: smartspend-backend
+          image: smartspend-backend:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
